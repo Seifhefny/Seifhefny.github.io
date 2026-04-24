@@ -175,6 +175,7 @@
     .o-roadmap { display:flex; flex-direction:column; gap:10px; }
     .o-roadmap-item { display:flex; align-items:flex-start; gap:14px; padding:18px; background:var(--bg2); border:1px solid var(--border); }
     .o-rm-status { font-family:var(--font-mono); font-size:9px; padding:4px 8px; white-space:nowrap; flex-shrink:0; }
+    .o-rm-done { background:rgba(34,197,94,0.08); border:1px solid rgba(34,197,94,0.25); color:#4ade80; }
     .o-rm-next { background:rgba(167,139,250,0.1); border:1px solid rgba(167,139,250,0.25); color:#a78bfa; }
     .o-rm-planned { background:rgba(242,240,236,0.04); border:1px solid var(--border); color:var(--fg2); }
     .o-roadmap-title { font-size:14px; font-weight:600; margin-bottom:4px; }
@@ -274,11 +275,19 @@ function ZakerlyOverlay({ open, onClose }) {
   }, [open]);
 
   const roadmap = [
-    { status:'next', title:'Upgrade AI to Claude API', desc:'Currently using OpenRouter with GPT-4o Mini. Planning to evaluate Claude API (Anthropic) for production-quality generation.' },
-    { status:'next', title:'File Upload & OCR', desc:'Let students upload PDFs and photos of notes. Backend extracts text via pdf-parse; images sent to Claude\'s vision API for OCR and diagram understanding.' },
-    { status:'next', title:'Exam Mode', desc:'The core loop: Summarize → Flashcard Drill → Quiz, repeating indefinitely with each pass going deeper on weak concepts.' },
-    { status:'planned', title:'Audio Mode', desc:'Flutter built-in TTS reads summaries and notes aloud. Zero API cost — fully on-device.' },
-    { status:'planned', title:'Mind Map Generator', desc:'AI returns a JSON concept graph. Flutter renders it as an interactive visual mind map.' },
+    { status:'done', title:'Auth System', desc:'Register, login, profile management, edit profile, and change password — all live in production.' },
+    { status:'done', title:'Subjects & File Management', desc:'Create subjects, upload PDFs, Cloudinary storage, delete files — full file lifecycle working end-to-end.' },
+    { status:'done', title:'AI Content Generation', desc:'Summaries, flashcards, and quizzes via OpenRouter (GPT-4o Mini), personalized to each student\'s education level and field.' },
+    { status:'done', title:'Backend APIs on Vercel', desc:'Every endpoint tested and working in production — auth, subjects, files, AI generation, quiz, and AI tutor.' },
+    { status:'done', title:'Flutter Fully Connected', desc:'Dashboard, subjects, upload, quiz, flashcards, AI tutor, and profile — all screens wired to the real backend.' },
+    { status:'done', title:'PDF Chunking & Weak-Spot Analysis', desc:'Chunk-based text search and weak-point quiz generation built from past performance data.' },
+    { status:'done', title:'AI Tutor', desc:'Context-aware chat using the student\'s actual session material.' },
+    { status:'done', title:'Session Time Tracking', desc:'Study time logged per session with progress analytics.' },
+    { status:'next', title:'Exam Mode', desc:'The core gamified loop: Summarize → Flashcard Drill → Quiz, repeating with no pauses, automatically targeting weak spots each pass.' },
+    { status:'next', title:'DOCX & PPTX Support', desc:'Convert Office files to PDF first, then process through the full AI pipeline.' },
+    { status:'planned', title:'Spaced Repetition', desc:'Flashcard scheduling based on past confidence ratings — smarter review intervals over time.' },
+    { status:'planned', title:'Claude API Migration', desc:'Evaluating Anthropic\'s Claude API as a replacement for OpenRouter/GPT-4o Mini for production.' },
+    { status:'planned', title:'Audio Mode', desc:'On-device TTS reads summaries and flashcards aloud. Zero API cost — fully on-device.' },
   ];
 
   return (
@@ -343,8 +352,8 @@ function ZakerlyOverlay({ open, onClose }) {
               {roadmap.map(function(r) {
                 return (
                   <div key={r.title} className="o-roadmap-item">
-                    <span className={"o-rm-status " + (r.status === 'next' ? 'o-rm-next' : 'o-rm-planned')}>
-                      {r.status === 'next' ? 'UP NEXT' : 'PLANNED'}
+                    <span className={"o-rm-status " + (r.status === 'done' ? 'o-rm-done' : r.status === 'next' ? 'o-rm-next' : 'o-rm-planned')}>
+                      {r.status === 'done' ? 'DONE' : r.status === 'next' ? 'UP NEXT' : 'PLANNED'}
                     </span>
                     <div>
                       <div className="o-roadmap-title">{r.title}</div>
