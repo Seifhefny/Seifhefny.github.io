@@ -274,7 +274,7 @@ function ZakerlyOverlay({ open, onClose }) {
   }, [open]);
 
   const roadmap = [
-    { status:'next', title:'Upgrade AI to Claude API', desc:'Swap Ollama/llama3.2 for Anthropic\'s Claude API (claude-sonnet) for production-quality summaries, flashcards, and quizzes.' },
+    { status:'next', title:'Upgrade AI to Claude API', desc:'Currently using OpenRouter with GPT-4o Mini. Planning to evaluate Claude API (Anthropic) for production-quality generation.' },
     { status:'next', title:'File Upload & OCR', desc:'Let students upload PDFs and photos of notes. Backend extracts text via pdf-parse; images sent to Claude\'s vision API for OCR and diagram understanding.' },
     { status:'next', title:'Exam Mode', desc:'The core loop: Summarize → Flashcard Drill → Quiz, repeating indefinitely with each pass going deeper on weak concepts.' },
     { status:'planned', title:'Audio Mode', desc:'Flutter built-in TTS reads summaries and notes aloud. Zero API cost — fully on-device.' },
@@ -303,14 +303,16 @@ function ZakerlyOverlay({ open, onClose }) {
 
           <div className="o-sec">
             <div className="o-lbl">The Problem</div>
-            <div className="o-ttl">Why studying doesn&#39;t work</div>
-            <p style={{fontSize:15,lineHeight:1.8,color:'var(--fg2)'}}>Students don&#39;t struggle with access to material &#8212; they struggle to retain it. Passive study (re-reading, highlighting) feels productive but the science is clear: it doesn&#39;t work. Most students go into exams knowing they&#39;ve studied, not knowing if it actually stuck.</p>
+            <div className="o-ttl">Two problems, one app</div>
+            <p style={{fontSize:15,lineHeight:1.8,color:'var(--fg2)',marginBottom:18}}><strong style={{color:'var(--fg)'}}>Problem 1 &#8212; Students don&#39;t know if they&#39;re studying efficiently.</strong> Most students spend hours passively going through material &#8212; re-reading, highlighting &#8212; without any real feedback on whether it&#39;s working. They don&#39;t know where to start, how to measure progress, or when they actually know the material well enough.</p>
+            <p style={{fontSize:15,lineHeight:1.8,color:'var(--fg2)'}}><strong style={{color:'var(--fg)'}}>Problem 2 &#8212; Students with ADHD and dyslexia can&#39;t sustain traditional study sessions.</strong> Long, unstructured studying requires constant self-direction: deciding what to study next, when to move on, and how to stay on task. For students with ADHD or dyslexia, that cognitive overhead is the real obstacle &#8212; not the material itself.</p>
           </div>
 
           <div className="o-sec">
             <div className="o-lbl">The Solution</div>
-            <div className="o-ttl">Automated active recall</div>
-            <p style={{fontSize:15,lineHeight:1.8,color:'var(--fg2)'}}>Zakerly replaces passive study with automated active recall. Upload your material, and the app generates everything: summaries, flashcards, and quizzes. The core feature &#8212; Exam Mode &#8212; loops indefinitely, going deeper on weak spots every pass, until the material is actually retained.</p>
+            <div className="o-ttl">No decisions. No dead time.</div>
+            <p style={{fontSize:15,lineHeight:1.8,color:'var(--fg2)',marginBottom:18}}>Zakerly removes both barriers. Upload your material and the AI handles everything &#8212; it generates summaries, flashcards, and quizzes, then automatically identifies weak spots and decides what to study next. Students never have to figure out what they should be doing.</p>
+            <p style={{fontSize:15,lineHeight:1.8,color:'var(--fg2)'}}>For students with ADHD or dyslexia, Exam Mode turns studying into a game: a continuous loop with no pauses, no dead time, and no decisions. It&#39;s structured enough to hold focus without requiring it.</p>
           </div>
 
           <div className="o-sec">
@@ -320,7 +322,7 @@ function ZakerlyOverlay({ open, onClose }) {
               {[
                 { layer:'Frontend', name:'Flutter Mobile App', desc:'Full cross-platform UI — sign-in, dashboard, upload flow, flashcard drill, quiz, and progress tracking. Runs on iOS, Android, and web.' },
                 { layer:'Backend', name:'Node.js / Express API', desc:'REST API with JWT authentication and MongoDB for user data and study sessions. Clean separation between routes, controllers, and business logic.' },
-                { layer:'AI Pipeline', name:'LLM Integration', desc:'Currently powered by Ollama (LLaMA 3.2), upgrading to Claude API. Generates summaries, flashcards, quizzes, and adaptive loop material per session.' },
+                { layer:'AI Pipeline', name:'LLM Integration', desc:'Powered by OpenRouter using GPT-4o Mini. Generates summaries, flashcards, quizzes, and adaptive loop material per session. Evaluating Claude API for production.' },
                 { layer:'Core Feature', name:'Exam Mode', desc:'An infinite loop — Summarize → Flashcard Drill → Quiz — that tracks weak spots and restructures content every pass until 100% of the material is covered.' },
               ].map(function(a) {
                 return (
@@ -416,7 +418,7 @@ function About() {
     'Languages': ['JavaScript','Dart','C++'],
     'Mobile': ['Flutter','Material UI'],
     'Backend': ['Node.js','Express','MongoDB','JWT','bcryptjs'],
-    'AI / LLM': ['Ollama','LLaMA 3.2','Claude API (integrating)'],
+    'AI / LLM': ['OpenRouter','GPT-4o Mini','Claude API (planned)'],
     'Tools': ['Git','GitHub','REST APIs'],
   };
   return (
@@ -493,8 +495,8 @@ function Projects(props) {
                     <span className="project-tag">Flutter</span>
                     <span className="project-tag">Node.js</span>
                     <span className="project-tag">MongoDB</span>
-                    <span className="project-tag">Ollama</span>
-                    <span className="project-tag">Claude API (WIP)</span>
+                    <span className="project-tag">OpenRouter</span>
+                    <span className="project-tag">GPT-4o Mini</span>
                     <span className="project-tag status">Pre-Alpha</span>
                   </div>
                 </div>
