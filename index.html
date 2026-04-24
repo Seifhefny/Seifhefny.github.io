@@ -273,38 +273,6 @@ function ZakerlyOverlay({ open, onClose }) {
     return () => { document.body.style.overflow = ''; };
   }, [open]);
 
-  const steps = [
-    { n:'01', title:'Pick Materials', desc:'Student selects their study materials. The backend stores session data and generated content in MongoDB, scoped per user.', badge:'JWT-authenticated sessions' },
-    { n:'02', title:'Summarize Phase', desc:'AI generates an exam-ready summary of the material. Loop 2+ targets weak areas from a different angle than the previous pass.', badge:'Progressive depth' },
-    { n:'03', title:'Flashcard Drill', desc:'Cards one by one. Student rates confidence per card. Every concept must appear — none skipped.', badge:'10 XP per card' },
-    { n:'04', title:'Quiz Phase', desc:'AI generates quiz questions. STEM auto-detection planned — will trigger calculation questions for science/math subjects.', badge:'20 XP per question' },
-    { n:'05', title:'Weak Analysis', desc:'All confidence ratings and quiz answers tagged by concept are analysed to identify exactly where the student is struggling.', badge:'callAIForWeakAnalysis' },
-    { n:'06', title:'Next Loop — Deeper', desc:'New material for same concepts, weighted toward weak areas. Strong concepts get a brief recap; weak ones get a fresh explanation.', badge:'Loop 3+ gets surgical' },
-  ];
-
-  const arch = [
-    { layer:'Layer 1 — Client', name:'Flutter Mobile App', desc:'Cross-platform mobile UI built in Flutter/Dart. Dark theme with purple accents. Screens include sign-in, dashboard, upload, quiz, flashcards, AI tutor, subjects, and profile. Full backend integration in progress.', tags:['Flutter','Dart','Material UI','Cross-platform'] },
-    { layer:'Layer 2 — Backend', name:'Node.js / Express API', desc:'Strict Routes → Controllers → Services architecture. Controllers are thin — they only parse requests and return responses. All business logic lives in the services layer. Every endpoint returns { success, data, message }. JWT auth with 30-day expiry and bcryptjs password hashing. All DB queries scoped to userId.', tags:['Node.js','Express','JWT','bcryptjs','MongoDB'] },
-    { layer:'Layer 3 — AI + Data', name:'AI Layer + MongoDB', desc:'Currently powered by Ollama (llama3.2) running locally — upgrading to Claude API (Anthropic) for production. MongoDB stores user profiles (with study streaks and session counts) and study sessions (documents, quiz questions, flashcards). File upload and OCR are next on the roadmap.', tags:['MongoDB','Ollama → Claude API','Local AI','Upgrading'] },
-  ];
-
-  const aiFns = [
-    { fn:'callAIForSummary()', title:'Summarization', desc:'Generates an exam-ready summary from extracted study material. Structured for retrieval, not a generic recap.' },
-    { fn:'callAIForFlashcards()', title:'Flashcards', desc:'Generates concept-tagged flashcards from the summary. Every concept in the material must appear — none skipped.' },
-    { fn:'callAIForQuiz()', title:'Quiz Generation', desc:'Generates quiz questions from the material. Planned: STEM auto-detection that triggers calculation-style questions for science and math subjects.' },
-    { fn:'callAIForWeakAnalysis()', title:'Weak Spot ID', desc:'Takes all loop results tagged by concept and identifies exactly where the student is consistently struggling.' },
-    { fn:'callAIForTargetedMaterial()', title:'Progressive Loop Material', desc:'The most complex function — generates a full new loop (summary + flashcards + quiz) where every concept appears in all three, and weak areas are explained differently than in previous loops.' },
-  ];
-
-  const adhdItems = [
-    { title:'Auto-Advance', desc:'3-second countdown between phases. No menus, no decisions.' },
-    { title:'Forced Exit Path', desc:'Only exit is through Weak Spots overlay — no blind quitting.' },
-    { title:'XP System', desc:'10 XP/flashcard, 20 XP/quiz question, 100 XP/loop.' },
-    { title:'Difficulty Adjustment', desc:'3 wrong in a row triggers easier format for that concept.' },
-    { title:'Single Focus UI', desc:'Only the current task and one floating button on screen.' },
-    { title:'Zero Decisions', desc:'App decides what to study next based on performance data.' },
-  ];
-
   const roadmap = [
     { status:'next', title:'Upgrade AI to Claude API', desc:'Swap Ollama/llama3.2 for Anthropic\'s Claude API (claude-sonnet) for production-quality summaries, flashcards, and quizzes.' },
     { status:'next', title:'File Upload & OCR', desc:'Let students upload PDFs and photos of notes. Backend extracts text via pdf-parse; images sent to Claude\'s vision API for OCR and diagram understanding.' },
@@ -334,94 +302,32 @@ function ZakerlyOverlay({ open, onClose }) {
           </div>
 
           <div className="o-sec">
-            <div className="o-lbl">Overview</div>
-            <div className="o-ttl">What Zakerly Does</div>
-            <div className="o-g2">
-              {[
-                { icon:'📄', title:'Upload Study Material', desc:'Students upload PDFs, notes, and past exams. The app extracts and stores the text — file upload and OCR coming next in development.' },
-                { icon:'🧠', title:'AI Does the Heavy Lifting', desc:'AI generates summaries, flashcards, and quizzes from the material. Currently powered by Ollama locally — upgrading to Claude API for production.' },
-                { icon:'🔁', title:'Exam Mode', desc:'Infinite adaptive loop: Summarize → Flashcard Drill → Quiz. 100% concept coverage every loop, depth shifts toward weak spots each pass.' },
-                { icon:'📊', title:'Progress-Gated Exit', desc:'The only exit is through the Weak Spots overlay — students are forced to see exactly where they struggle before quitting.' },
-              ].map(function(c) {
-                return (
-                  <div key={c.title} className="o-card">
-                    <div className="o-card-icon">{c.icon}</div>
-                    <div className="o-card-title">{c.title}</div>
-                    <div className="o-card-desc">{c.desc}</div>
-                  </div>
-                );
-              })}
-            </div>
+            <div className="o-lbl">The Problem</div>
+            <div className="o-ttl">Why studying doesn&#39;t work</div>
+            <p style={{fontSize:15,lineHeight:1.8,color:'var(--fg2)'}}>Students don&#39;t struggle with access to material &#8212; they struggle to retain it. Passive study (re-reading, highlighting) feels productive but the science is clear: it doesn&#39;t work. Most students go into exams knowing they&#39;ve studied, not knowing if it actually stuck.</p>
           </div>
 
           <div className="o-sec">
-            <div className="o-lbl">Core Feature</div>
-            <div className="o-ttl">How Exam Mode Works</div>
-            <div className="o-flow">
-              {steps.map(function(s, i) {
-                return (
-                  <div key={s.n} className="o-step">
-                    {i < steps.length - 1 && <div className="o-step-line" />}
-                    <div className="o-step-num">{s.n}</div>
-                    <div className="o-step-body">
-                      <div className="o-step-title">{s.title}</div>
-                      <div className="o-step-desc">{s.desc}</div>
-                      <span className="o-badge">{s.badge}</span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+            <div className="o-lbl">The Solution</div>
+            <div className="o-ttl">Automated active recall</div>
+            <p style={{fontSize:15,lineHeight:1.8,color:'var(--fg2)'}}>Zakerly replaces passive study with automated active recall. Upload your material, and the app generates everything: summaries, flashcards, and quizzes. The core feature &#8212; Exam Mode &#8212; loops indefinitely, going deeper on weak spots every pass, until the material is actually retained.</p>
           </div>
 
           <div className="o-sec">
-            <div className="o-lbl">Technical Architecture</div>
-            <div className="o-ttl">Three-Layer System</div>
+            <div className="o-lbl">What I Built</div>
+            <div className="o-ttl">The product</div>
             <div className="o-arch">
-              {arch.map(function(a) {
+              {[
+                { layer:'Frontend', name:'Flutter Mobile App', desc:'Full cross-platform UI — sign-in, dashboard, upload flow, flashcard drill, quiz, and progress tracking. Runs on iOS, Android, and web.' },
+                { layer:'Backend', name:'Node.js / Express API', desc:'REST API with JWT authentication and MongoDB for user data and study sessions. Clean separation between routes, controllers, and business logic.' },
+                { layer:'AI Pipeline', name:'LLM Integration', desc:'Currently powered by Ollama (LLaMA 3.2), upgrading to Claude API. Generates summaries, flashcards, quizzes, and adaptive loop material per session.' },
+                { layer:'Core Feature', name:'Exam Mode', desc:'An infinite loop — Summarize → Flashcard Drill → Quiz — that tracks weak spots and restructures content every pass until 100% of the material is covered.' },
+              ].map(function(a) {
                 return (
                   <div key={a.name} className="o-arch-card">
                     <div className="o-arch-layer">{a.layer}</div>
                     <div className="o-arch-name">{a.name}</div>
                     <div className="o-arch-desc">{a.desc}</div>
-                    <div className="o-tags">
-                      {a.tags.map(function(t){ return <span key={t} className="o-tag">{t}</span>; })}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          <div className="o-sec">
-            <div className="o-lbl">AI Layer</div>
-            <div className="o-ttl">Five AI Functions</div>
-            <div className="o-ai-grid">
-              {aiFns.map(function(f) {
-                var isWide = f.fn === 'callAIForTargetedMaterial()';
-                return (
-                  <div key={f.fn} className="o-ai-card" style={isWide ? {gridColumn:'1 / -1'} : {}}>
-                    <div className="o-ai-fn">{f.fn}</div>
-                    <div className="o-ai-title">{f.title}</div>
-                    <div className="o-ai-desc">{f.desc}</div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          <div className="o-sec">
-            <div className="o-lbl">Design Philosophy</div>
-            <div className="o-ttl">ADHD-Friendly by Architecture</div>
-            <div className="o-adhd">
-              {adhdItems.map(function(a) {
-                return (
-                  <div key={a.title} className="o-adhd-item">
-                    <div className="o-adhd-dot" />
-                    <div>
-                      <div className="o-adhd-title">{a.title}</div>
-                      <div className="o-adhd-desc">{a.desc}</div>
-                    </div>
                   </div>
                 );
               })}
@@ -537,7 +443,7 @@ function About() {
               {[
                 {num:'~8mo', label:'Coding experience'},
                 {num:'1', label:'Product in development'},
-                {num:'3', label:'Layers: app, backend, AI'},
+                {num:'3', label:'Frontend, backend & AI'},
                 {num:'∞', label:'Problems to solve'},
               ].map(function(s) {
                 return (
