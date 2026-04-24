@@ -7,8 +7,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
-  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <meta property="og:title" content="Seif Hefny — Developer" />
+  <meta property="og:description" content="Flutter &amp; Node.js developer building AI-powered mobile products. Based in Cairo, Egypt." />
+  <meta property="og:url" content="https://seifhefny.github.io" />
+  <meta property="og:type" content="website" />
+  <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -482,7 +486,7 @@ function Hero() {
         <div className="hero-label">Open to projects &mdash; <span>Cairo, Egypt</span></div>
       </div>
       <h1 className="hero-name">Seif<br /><em>Hefny.</em></h1>
-      <p className="hero-tagline">App, web &amp; software developer. I build products that solve real problems &#8212; from mobile to full-stack.</p>
+      <p className="hero-tagline">Flutter &amp; Node.js developer building AI-powered mobile products &#8212; from architecture to UI.</p>
       <div className="hero-cta">
         <a href="#projects" className="btn-primary">See My Work <ArrowRight /></a>
         <a href="#contact" className="btn-outline">Get in Touch</a>
@@ -503,10 +507,11 @@ function About() {
   const r1 = useReveal();
   const r2 = useReveal();
   var stacks = {
-    'Mobile': ['Flutter','Dart','Hive'],
-    'Backend': ['Node.js','Express','MongoDB','JWT'],
-    'AI / APIs': ['Claude API','Vision OCR','pdf-parse'],
-    'Tools': ['Git','GitHub','Figma','REST APIs'],
+    'Languages': ['JavaScript','Dart','C++'],
+    'Mobile': ['Flutter','Material UI'],
+    'Backend': ['Node.js','Express','MongoDB','JWT','bcryptjs'],
+    'AI / LLM': ['Ollama','LLaMA 3.2','Claude API (integrating)'],
+    'Tools': ['Git','GitHub','REST APIs'],
   };
   return (
     <React.Fragment>
@@ -520,7 +525,7 @@ function About() {
           <div ref={r2} className="reveal" style={{transitionDelay:'0.1s'}}>
             <div className="about-bio">
               <p>I&#39;m <strong>Seif Hefny</strong>, a developer based in <strong>Cairo, Egypt</strong>, studying Electronics &amp; Communication Engineering at AUC. I transferred from Computer Engineering &#8212; I wanted the hardware depth without losing the software side.</p>
-              <p>I started coding in September 2024, almost entirely <strong>self-taught</strong>. My first real project was <strong>Zakerly</strong> &#8212; an AI-powered study app &#8212; and it went from idea to a fully-architected three-layer mobile product in a few months.</p>
+              <p>I started coding in September 2025, almost entirely <strong>self-taught</strong>. My first real project was <strong>Zakerly</strong> &#8212; an AI-powered study app &#8212; and it went from idea to a fully-architected three-layer mobile product in a few months.</p>
               <p>I&#39;m driven by ideas that <strong>solve real problems and have business potential</strong>. I build end-to-end &#8212; from architecture to UI &#8212; and I care about both.</p>
             </div>
             <div className="about-fun-fact">
@@ -531,7 +536,7 @@ function About() {
             <div className="about-stats">
               {[
                 {num:'~8mo', label:'Coding experience'},
-                {num:'1', label:'Shipped project'},
+                {num:'1', label:'Product in development'},
                 {num:'3', label:'Layers: app, backend, AI'},
                 {num:'∞', label:'Problems to solve'},
               ].map(function(s) {
@@ -582,7 +587,8 @@ function Projects(props) {
                     <span className="project-tag">Flutter</span>
                     <span className="project-tag">Node.js</span>
                     <span className="project-tag">MongoDB</span>
-                    <span className="project-tag">Ollama → Claude API</span>
+                    <span className="project-tag">Ollama</span>
+                    <span className="project-tag">Claude API (WIP)</span>
                     <span className="project-tag status">Pre-Alpha</span>
                   </div>
                 </div>
@@ -620,8 +626,8 @@ function Projects(props) {
         <div ref={r3} className="reveal" style={{transitionDelay:'0.2s'}}>
           <div className="more-card">
             <div>
-              <div style={{fontSize:15,fontWeight:600,marginBottom:6}}>More projects coming</div>
-              <div style={{fontSize:14,color:'var(--fg2)'}}>Follow my GitHub to stay up to date</div>
+              <div style={{fontSize:15,fontWeight:600,marginBottom:6}}>Currently heads-down on Zakerly</div>
+              <div style={{fontSize:14,color:'var(--fg2)'}}>More projects in progress — follow along on GitHub</div>
             </div>
             <a href="https://github.com/Seifhefny" target="_blank" rel="noopener" className="btn-outline" style={{fontSize:13}}>
               <GithubIcon /> @Seifhefny
