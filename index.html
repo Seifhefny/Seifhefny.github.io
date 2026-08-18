@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Seif Hefny — Flutter &amp; AI Developer | Cairo, Egypt</title>
-  <meta name="description" content="Flutter and Node.js developer specializing in AI-powered mobile products. Built Zakerly, a full-stack AI study app. Based in Cairo, Egypt. Available for freelance projects." />
+  <title>Seif Hefny — AI Engineer | Retrieval Systems &amp; Agents | Cairo, Egypt</title>
+  <meta name="description" content="AI engineer building retrieval systems and autonomous agents — RAG pipelines, hybrid search, and multi-agent orchestration on local open-source models. Cairo, Egypt. Available for freelance work." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
-  <meta property="og:title" content="Seif Hefny — Developer" />
-  <meta property="og:description" content="Flutter &amp; Node.js developer building AI-powered mobile products. Based in Cairo, Egypt." />
+  <meta property="og:title" content="Seif Hefny — AI Engineer" />
+  <meta property="og:description" content="AI engineer building retrieval systems and autonomous agents. Based in Cairo, Egypt." />
   <meta property="og:url" content="https://seifhefny.github.io" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://seifhefny.github.io/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Seif Hefny — Developer" />
-  <meta name="twitter:description" content="Flutter &amp; Node.js developer building AI-powered mobile products. Based in Cairo, Egypt." />
+  <meta name="twitter:title" content="Seif Hefny — AI Engineer" />
+  <meta name="twitter:description" content="AI engineer building retrieval systems and autonomous agents. Based in Cairo, Egypt." />
   <meta name="twitter:image" content="https://seifhefny.github.io/og-image.png" />
   <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
@@ -115,6 +115,14 @@
     .phone-placeholder { width:100%; aspect-ratio:390/844; background:linear-gradient(160deg,#1a1020 0%,#0d0d18 100%); display:flex; align-items:center; justify-content:center; }
     .phone-placeholder-inner { text-align:center; color:rgba(167,139,250,0.3); font-family:var(--font-mono); font-size:11px; letter-spacing:0.1em; }
     .phone-placeholder-icon { font-size:32px; margin-bottom:8px; opacity:0.3; }
+    .agent-spec { border-top:1px solid var(--border); margin-top:8px; }
+    .agent-spec-row { display:grid; grid-template-columns:150px 1fr; gap:20px; padding:14px 0; border-bottom:1px solid var(--border); }
+    .agent-spec-k { font-family:var(--font-mono); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent); padding-top:2px; }
+    .agent-spec-v { font-size:14px; line-height:1.7; color:var(--fg2); }
+    .agent-demo { margin-top:26px; border:1px solid var(--border); background:var(--bg3); overflow:hidden; }
+    .agent-demo img { width:100%; display:block; }
+    @media (max-width:700px) { .agent-spec-row { grid-template-columns:1fr; gap:5px; } }
+
     .more-card { border:1px dashed var(--border); padding:40px 48px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-top:24px; }
 
     .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; }
@@ -237,6 +245,20 @@
 <script type="text/babel">
 const { useState, useEffect, useRef } = React;
 
+// ── EDIT THESE ONCE THE REPOS ARE PUBLIC ─────────────────────────────
+// Replace with the real URLs after you push. If a repo isn't live yet,
+// leave the value as null and the GitHub button for it won't render.
+const REPOS = {
+  research: null,   // e.g. 'https://github.com/Seifhefny/academic-research-agent'
+  property: null,   // e.g. 'https://github.com/Seifhefny/property-search-agent'
+  zakerly:  'https://github.com/Seifhefny/Zakerly',
+};
+// Optional demo GIFs — drop the files next to index.html and set the names.
+const DEMOS = {
+  research: null,   // e.g. 'demo-research.gif'
+  property: null,   // e.g. 'demo-property.gif'
+};
+
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{"accent":"warm","font":"helvetica"}/*EDITMODE-END*/;
 
 function useReveal() {
@@ -291,7 +313,7 @@ function ZakerlyOverlay({ open, onClose }) {
     { status:'done', title:'PDF Chunking & Weak-Spot Analysis', desc:'Chunk-based text search and weak-point quiz generation built from past performance data.' },
     { status:'done', title:'AI Tutor', desc:'Context-aware chat using the student\'s actual session material.' },
     { status:'done', title:'Session Time Tracking', desc:'Study time logged per session with progress analytics.' },
-    { status:'next', title:'Exam Mode', desc:'The core gamified loop: Summarize → Flashcard Drill → Quiz, repeating with no pauses, automatically targeting weak spots each pass.' },
+    { status:'done', title:'Exam Mode', desc:'The core gamified loop: Summarize → Flashcard Drill → Quiz, repeating with no pauses, automatically targeting weak spots each pass.' },
     { status:'next', title:'DOCX & PPTX Support', desc:'Convert Office files to PDF first, then process through the full AI pipeline.' },
     { status:'planned', title:'Spaced Repetition', desc:'Flashcard scheduling based on past confidence ratings — smarter review intervals over time.' },
     { status:'planned', title:'Claude API Migration', desc:'Evaluating Anthropic\'s Claude API as a replacement for OpenRouter/GPT-4o Mini for production.' },
@@ -411,7 +433,7 @@ function Hero() {
         <div className="hero-label">Open to projects &mdash; <span>Cairo, Egypt</span></div>
       </div>
       <h1 className="hero-name">Seif<br /><em>Hefny.</em></h1>
-      <p className="hero-tagline">Flutter &amp; Node.js developer building AI-powered mobile products &#8212; from architecture to UI.</p>
+      <p className="hero-tagline">I build retrieval systems and autonomous agents &#8212; RAG pipelines, hybrid search, and multi-agent orchestration, running on local open-source models.</p>
       <div className="hero-cta">
         <a href="#projects" className="btn-primary">See My Work <ArrowRight /></a>
         <a href="#contact" className="btn-outline">Get in Touch</a>
@@ -432,11 +454,11 @@ function About() {
   const r1 = useReveal();
   const r2 = useReveal();
   var stacks = {
-    'Languages': ['JavaScript','Dart','C++'],
-    'Mobile': ['Flutter','Material UI'],
-    'Backend': ['Node.js','Express','MongoDB','JWT','bcryptjs'],
-    'AI / LLM': ['OpenRouter','GPT-4o Mini','Claude API (planned)'],
-    'Tools': ['Git','GitHub','REST APIs'],
+    'Languages': ['Python','C++','Dart','JavaScript'],
+    'AI / Agents': ['LangGraph','RAG','Sentence embeddings','Hybrid search','Cosine similarity','Ollama','Local LLMs','OpenRouter'],
+    'Backend': ['Node.js','Express','MongoDB','JWT','REST APIs'],
+    'Mobile / Frontend': ['Flutter','Provider','Dio'],
+    'Tools': ['Git','GitHub','Vercel','Postman'],
   };
   return (
     <React.Fragment>
@@ -449,21 +471,21 @@ function About() {
         <div className="about-grid">
           <div ref={r2} className="reveal" style={{transitionDelay:'0.1s'}}>
             <div className="about-bio">
-              <p>I&#39;m <strong>Seif Hefny</strong>, a developer based in <strong>Cairo, Egypt</strong>, studying Electronics &amp; Communication Engineering at AUC. The hardware fundamentals from my degree pair with the software work I do on the side &#8212; I like that the combination is rare.</p>
-              <p>I build <strong>full-stack AI-powered mobile products</strong> end-to-end. My latest project, <strong>Zakerly</strong>, is a complete three-layer system: Flutter frontend, Node.js backend, and a custom LLM pipeline I designed and deployed to production myself.</p>
-              <p>I&#39;m driven by ideas that <strong>solve real problems and have business potential</strong>. I care about architecture, UI, and shipping &#8212; not just one of them.</p>
+              <p>I&#39;m <strong>Seif Hefny</strong>, based in <strong>Cairo, Egypt</strong>, studying Electronics &amp; Communication Engineering at AUC. I build <strong>AI systems</strong> &#8212; retrieval pipelines and autonomous agents &#8212; and I ship them end to end rather than stopping at the prototype.</p>
+              <p>Most of my agent work runs on <strong>local open-source models via Ollama</strong>: no per-token cost, and no data leaving the machine. For anyone with material they can&#39;t hand to a third-party API, that constraint is the entire point.</p>
+              <p>I also ship complete products. <strong>Zakerly</strong> is a deployed three-layer system &#8212; Flutter client, Node.js API, and an LLM pipeline I designed and put into production myself.</p>
             </div>
             <div className="about-fun-fact">
-              My first program was C++. My second was a full-stack AI mobile app. No in-between.
+              I build each system from scratch first, then rebuild it on a framework. It is the fastest way I have found to learn what the abstraction is actually hiding.
             </div>
           </div>
           <div className="about-right">
             <div className="about-stats">
               {[
-                {num:'3', label:'Layers shipped — frontend, backend, AI'},
-                {num:'AI', label:'Native — not bolted on'},
-                {num:'E2E', label:'From architecture to UI'},
-                {num:'∞', label:'Problems to solve'},
+                {num:'3', label:'Systems built end to end'},
+                {num:'2', label:'Agentic RAG pipelines'},
+                {num:'$0', label:'Inference cost — agents run locally'},
+                {num:'1', label:'Product deployed to production'},
               ].map(function(s) {
                 return (
                   <div key={s.label} className="stat-card">
@@ -491,9 +513,53 @@ function About() {
   );
 }
 
+function AgentCard(props) {
+  var repo = props.repo, demo = props.demo;
+  return (
+    <div className="project-card" style={{marginBottom:24}}>
+      <div className="project-meta">
+        <span className="project-index">{props.index}</span>
+        <div className="project-tags">
+          {props.tags.map(function(t){ return <span key={t} className="project-tag">{t}</span>; })}
+          <span className="project-tag status">{props.status}</span>
+        </div>
+      </div>
+      <h3 className="project-name">{props.name}</h3>
+      <div className="project-tagline">{props.tagline}</div>
+      <p className="project-desc">{props.desc}</p>
+
+      <div className="agent-spec">
+        {props.spec.map(function(row) {
+          return (
+            <div key={row.k} className="agent-spec-row">
+              <div className="agent-spec-k">{row.k}</div>
+              <div className="agent-spec-v">{row.v}</div>
+            </div>
+          );
+        })}
+      </div>
+
+      {demo ? (
+        <div className="agent-demo">
+          <img src={demo} alt={props.name + ' demo'}
+            onError={function(e){ e.target.parentNode.style.display='none'; }} />
+        </div>
+      ) : null}
+
+      {repo ? (
+        <div className="project-links" style={{marginTop:24}}>
+          <a href={repo} target="_blank" rel="noopener" className="btn-outline" style={{fontSize:13}}>
+            <GithubIcon /> View source
+          </a>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 function Projects(props) {
   var onOpenZakerly = props.onOpenZakerly;
-  var r1 = useReveal(), r2 = useReveal(), r3 = useReveal();
+  var r1 = useReveal(), r2 = useReveal(), r3 = useReveal(), r4 = useReveal(), r5 = useReveal();
   return (
     <React.Fragment>
       <div className="section-divider" />
@@ -502,31 +568,69 @@ function Projects(props) {
           <div className="section-label">02 &#8212; What I&#39;ve built</div>
           <h2 className="section-title">Projects</h2>
         </div>
+
         <div ref={r2} className="reveal" style={{transitionDelay:'0.1s'}}>
+          <AgentCard
+            index="01"
+            name="Academic Research Agent"
+            tagline="Turns a research topic into a sourced, structured paper"
+            status="In development"
+            tags={['Python','LangGraph','RAG','Embeddings','Ollama']}
+            desc={<React.Fragment>Give it a research topic and it generates candidate claims, retrieves and embeds academic PDFs, then judges every source as <strong style={{color:'var(--fg)'}}>supporting, opposing, or irrelevant</strong> to each claim &#8212; before synthesising the surviving evidence into a structured paper. The judging stage is what separates it from a summariser: sources are evaluated against claims rather than blended together.</React.Fragment>}
+            spec={[
+              {k:'Retrieval', v:'PDF ingestion, chunking, and vector embedding over an assembled corpus'},
+              {k:'Reasoning', v:'Per-claim evidence classification into supporting / opposing / irrelevant'},
+              {k:'Orchestration', v:'Multi-step LangGraph workflow with explicit state between stages'},
+              {k:'Models', v:'Local open-source models via Ollama — runs fully offline, no per-token cost'},
+            ]}
+            repo={REPOS.research}
+            demo={DEMOS.research}
+          />
+        </div>
+
+        <div ref={r3} className="reveal" style={{transitionDelay:'0.15s'}}>
+          <AgentCard
+            index="02"
+            name="Property Search Agent"
+            tagline="Hybrid retrieval over real-estate listings"
+            status="In development"
+            tags={['Python','LangGraph','Hybrid search','Embeddings','Ollama']}
+            desc={<React.Fragment>A natural-language property search that combines <strong style={{color:'var(--fg)'}}>structured attribute filtering</strong> with <strong style={{color:'var(--fg)'}}>semantic search over sentence embeddings</strong>, ranked by cosine similarity. Pure semantic search fails on hard constraints like price ceilings and bedroom counts; pure filtering fails on everything a person actually says. Hybrid handles both in one query.</React.Fragment>}
+            spec={[
+              {k:'Retrieval', v:'Structured filters over listing attributes, fused with embedding similarity on descriptions'},
+              {k:'Ranking', v:'Cosine similarity across the embedded corpus, combined with filter constraints'},
+              {k:'Orchestration', v:'LangGraph agent workflow — built from scratch first, then rebuilt on the framework'},
+              {k:'Models', v:'Local open-source models via Ollama — no paid API dependency'},
+            ]}
+            repo={REPOS.property}
+            demo={DEMOS.property}
+          />
+        </div>
+
+        <div ref={r4} className="reveal" style={{transitionDelay:'0.2s'}}>
           <div className="project-card">
             <div className="project-layout">
               <div>
                 <div className="project-meta">
-                  <span className="project-index">01</span>
+                  <span className="project-index">03</span>
                   <div className="project-tags">
                     <span className="project-tag">Flutter</span>
                     <span className="project-tag">Node.js</span>
                     <span className="project-tag">MongoDB</span>
                     <span className="project-tag">OpenRouter</span>
-                    <span className="project-tag">GPT-4o Mini</span>
-                    <span className="project-tag status">Live Beta</span>
+                    <span className="project-tag status">Live &#8212; try it</span>
                   </div>
                 </div>
                 <h3 className="project-name">Zakerly</h3>
-                <div className="project-tagline">AI-powered study engine for students who hate studying</div>
+                <div className="project-tagline">A deployed AI study assistant &#8212; the product proof</div>
                 <p className="project-desc">
-                  Zakerly is a mobile study app built with Flutter, Node.js, and MongoDB. Students upload their study materials and AI handles the rest &#8212; generating summaries, flashcards, and quizzes. The standout feature is <strong style={{color:'var(--fg)'}}>Exam Mode</strong>: an infinite adaptive loop that drills 100% of the material and goes deeper on weak spots every pass. Currently in active development &#8212; pre-alpha with a polished UI and AI integration underway.
+                  Zakerly is the one that shipped. Students upload material and the system generates summaries, flashcards, and quizzes, then runs <strong style={{color:'var(--fg)'}}>Exam Mode</strong>: an adaptive loop that tracks weak spots and goes deeper on them every pass. Flutter client, Node.js API with JWT auth, MongoDB, deployed to production &#8212; built and shipped solo.
                 </p>
                 <div className="project-links">
                   <a href="https://Seifhefny.github.io/Zakerly/" target="_blank" rel="noopener" className="btn-primary" style={{fontSize:13}}>
                     Try App <ArrowRight />
                   </a>
-                  <a href="https://github.com/Seifhefny/Zakerly" target="_blank" rel="noopener" className="btn-outline" style={{fontSize:13}}>
+                  <a href={REPOS.zakerly} target="_blank" rel="noopener" className="btn-outline" style={{fontSize:13}}>
                     <GithubIcon /> GitHub
                   </a>
                 </div>
@@ -539,12 +643,12 @@ function Projects(props) {
                   background:'var(--bg2)',
                   border:'1px solid var(--border)',
                   borderRadius:6,
-                  display:'inline-block',
+                  display:'block',
                   letterSpacing:'0.02em'
                 }}>
-                  <span style={{color:'var(--accent)'}}>→</span>&nbsp;&nbsp;Tap
+                  <span style={{color:'var(--accent)'}}>&#8594;</span>&nbsp;&nbsp;Tap
                   <strong style={{color:'var(--fg)'}}>&nbsp;Continue as Guest&nbsp;</strong>
-                  inside the app — no signup required
+                  inside the app &#8212; no signup required
                 </div>
                 <button className="deep-dive-btn" onClick={onOpenZakerly}>
                   Deep dive: architecture &amp; features <ArrowRight />
@@ -556,7 +660,7 @@ function Projects(props) {
                   <div className="phone-screen">
                     <img src={window.ZAKERLY_IMG} alt="Zakerly app screenshot"
                       onError={function(e){
-                        e.target.parentNode.innerHTML = '<div class="phone-placeholder"><div class="phone-placeholder-inner"><div class="phone-placeholder-icon">📱</div>ZAKERLY</div></div>';
+                        e.target.parentNode.innerHTML = '<div class="phone-placeholder"><div class="phone-placeholder-inner"><div class="phone-placeholder-icon">&#128241;</div>ZAKERLY</div></div>';
                       }} />
                   </div>
                 </div>
@@ -564,11 +668,12 @@ function Projects(props) {
             </div>
           </div>
         </div>
-        <div ref={r3} className="reveal" style={{transitionDelay:'0.2s'}}>
+
+        <div ref={r5} className="reveal" style={{transitionDelay:'0.25s'}}>
           <div className="more-card">
             <div>
               <div style={{fontSize:15,fontWeight:600,marginBottom:6}}>Available for select projects</div>
-              <div style={{fontSize:14,color:'var(--fg2)'}}>Flutter apps, Node.js APIs, AI integrations — get in touch</div>
+              <div style={{fontSize:14,color:'var(--fg2)'}}>RAG pipelines, custom agents, and AI integrations &#8212; on your infrastructure or mine</div>
             </div>
             <a href="#contact" className="btn-outline" style={{fontSize:13}}>
               Get in Touch <ArrowRight />
@@ -598,7 +703,7 @@ function Contact() {
         <div className="contact-grid">
           <div ref={r2} className="reveal" style={{transitionDelay:'0.1s'}}>
             <p className="contact-intro">
-              Open to <strong>collaborations</strong>, freelance work, and conversations about interesting problems. If you have an idea that needs building &#8212; reach out.
+              Available for freelance work on <strong>RAG pipelines, custom agents, and AI integrations</strong> &#8212; including systems that run entirely on your own infrastructure. Also open to internships and conversations about interesting retrieval problems.
             </p>
           </div>
           <div ref={r3} className="reveal" style={{transitionDelay:'0.2s'}}>
